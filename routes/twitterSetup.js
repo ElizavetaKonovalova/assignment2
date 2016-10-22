@@ -3,6 +3,7 @@ var twitter = require('twitter');
 var retext = require('retext');
 var sentiment = require('retext-sentiment');
 var cliche = require('retext-cliches');
+var equality = require('retext-equality');
 var report = require('vfile-reporter');
 var profanity = require('retext-profanities');
 var inspect = require('unist-util-inspect');
@@ -42,8 +43,8 @@ module.exports = function (flag) {
 function Sentiment(data) {
     retext().use(sentiment).use(function () {
         return function (cst) {
-            Visualisation(json('data', {data: cst}).value);
-            //console.log(json('data', {data: cst}).value);
+            //Visualisation(json('data', {data: cst}).value);
+            console.log(json('data', {data: cst}).value);
         };
     }).process(data);
 }
@@ -52,6 +53,7 @@ function Cliches(data) {
     retext()
         .use(cliche)
         .use(profanity)
+        .use(equality)
         .process(data, function (err, file) {
             //console.log(String(file));
             if (file !== "no issues found")
