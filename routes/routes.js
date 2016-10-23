@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var azures = require('./models/azure');
 var twitter_client = require('./twitterSetup');
 
 router.get('/', function(req, res, next) {
@@ -11,7 +12,8 @@ router.get('/cliches', function (req, res, next) {
 });
 
 router.get('/sentiment', function (req, res, next) {
-  twitter_client("sentiment");
+  azures();
+  //twitter_client("sentiment");
 });
 
 module.exports = router;

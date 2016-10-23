@@ -16,10 +16,10 @@ var jsdom = require('jsdom');
 module.exports = function (flag) {
 
     var client = new twitter({
-        consumer_key: configAuth.consumer_key,
-        consumer_secret: configAuth.consumer_secret,
-        access_token_key: configAuth.access_token,
-        access_token_secret: configAuth.access_token_secret
+        consumer_key: configAuth.twitter.consumer_key,
+        consumer_secret: configAuth.twitter.consumer_secret,
+        access_token_key: configAuth.twitter.access_token,
+        access_token_secret: configAuth.twitter.access_token_secret
     });
 
     var stream = client.stream('statuses/filter.json', {track: "trump, war"});

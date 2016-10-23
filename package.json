@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "azure-asm-compute": "^0.17.1",
+    "azure-common": "^0.9.18",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "d3": "^4.2.8",
