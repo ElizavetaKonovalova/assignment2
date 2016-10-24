@@ -28,6 +28,7 @@ app.use(session({
 }));
 
 app.use('/', routes);
+app.use('/public', express.static(__dirname + '/public'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
