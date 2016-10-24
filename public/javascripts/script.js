@@ -1,4 +1,9 @@
 function Search(){
+
+	//Remove the animation
+	$('.twitter_animation').empty();
+	$('.twitter_animation').remove();
+
 	var search_key = $("#search_key").val();
 	console.log(search_key);
 
