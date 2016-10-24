@@ -13,6 +13,8 @@ module.exports = function () {
         pem: configAuth.azure.pem
     }));
 
+    //var scale_set = new VirtualMachineScaleSet(computeManagementClient);
+
     computeManagementClient.virtualMachineVMImages.list(
         function (err, result) {
             if (err) {
