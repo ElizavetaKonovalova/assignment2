@@ -1,6 +1,8 @@
 var azure_compute = require('azure-asm-compute');
 var azure_common = require('azure-common');
-var configAuth = require('./credentials');
+var configAuth = require('./models/credentials');
+
+var service_name = "assignment2";
 
 module.exports = function () {
 
@@ -9,6 +11,8 @@ module.exports = function () {
         subscriptionId: configAuth.azure.subscription_id,
         pem: configAuth.azure.pem
     }));
+
+    computeManagementClient.
 
     computeManagementClient.virtualMachineVMImages.list(
         function (err, result) {
