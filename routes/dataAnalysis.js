@@ -15,15 +15,13 @@ module.exports = function (data) {
 
     retext().use(sentiment).use(function () {
         return function (cst) {
-            //Visualisation(json('data', {data: cst}).value);
             console.log(json('data', {data: cst}).value);
         };
     }).process(data);
 
     retext().use(cliche).use(profanity).use(equality).process(data, function (err, file) {
-        //console.log(String(file));
-        if (file !== "no issues found")
-            console.error(report(err || file));
+        if ((json('messages.message', {data: file}).value).length != 0)
+            console.error(json('messages.message', {data: file}).value);
     });
 };
 
