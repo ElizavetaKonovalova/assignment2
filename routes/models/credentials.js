@@ -12,6 +12,7 @@ module.exports =
 
     'azure' : {
         'subscription_id': 'e6062b6f-ab04-4c4a-874e-aefa2ec9c998',
-        'pem': fs.readFileSync('./documents/azure.pem').toString()
+        'pem': fs.readFileSync('./documents/azure.pem').toString(),
+        'resourcegroup' : 'assignment2'
     }
 };

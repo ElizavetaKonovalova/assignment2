@@ -24,16 +24,3 @@ module.exports = function (data) {
             console.error(json('messages.message', {data: file}).value);
     });
 };
-
-
-/*function Visualisation(data) {
-
- var document = jsdom.jsdom();
- var p = d3.select(document.body).selectAll("p")
- .data(data)
- .enter()
- .append("p")
- .text(function (d,i) {
- return "i = " + i + " d = "+d;
- });
- }*/

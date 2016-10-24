@@ -7,17 +7,20 @@ var service_name = "assignment2";
 
 module.exports = function () {
 
-   /* var computeManagementClient = azure_asm_compute.createComputeManagementClient(
+   /*var compute_client_asm = azure_asm_compute.createComputeManagementClient(
         new azure_common.CertificateCloudCredentials({
         subscriptionId: configAuth.azure.subscription_id,
         pem: configAuth.azure.pem
     }));*/
 
-    var compute_client = new azure_rm_compute(
+    var compute_client_arm = new azure_rm_compute(
         new azure_common.CertificateCloudCredentials({
         subscriptionId: configAuth.azure.subscription_id,
         pem: configAuth.azure.pem
     }),configAuth.azure.subscription_id);
+
+    /*compute_client_arm.virtualMachineScaleSets.beginCreateOrUpdate(
+        configAuth.azure.resourcegroup,);*/
 
     //VirtualMachineScaleSet scale_sets = new
 
