@@ -9,6 +9,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/analyse', function (req, res, next) {
     //azures();
+
+    //should pass user query to the twitter
     twitter_client();
 });
 

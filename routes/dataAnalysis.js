@@ -13,16 +13,21 @@ var jsdom = require('jsdom');
 
 module.exports = function (data) {
 
+	var result;
+
     retext().use(sentiment).use(function () {
         return function (cst) {
-            console.log(json('data', {data: cst}).value);
+        	// console.log("-----------------------------");
+            result = json('data', {data: cst}).value;
         };
     }).process(data);
 
-    retext().use(cliche).use(profanity).use(equality).process(data, function (err, file) {
-        if ((json('messages.message', {data: file}).value).length != 0)
-            console.error(json('messages.message', {data: file}).value);
-    });
+    // retext().use(cliche).use(profanity).use(equality).process(data, function (err, file) {
+    //     if ((json('messages.message', {data: file}).value).length != 0)
+    //         console.error(json('messages.message', {data: file}).value);
+    // });
+
+    return result;
 };
 
 

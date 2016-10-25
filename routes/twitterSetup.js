@@ -14,7 +14,15 @@ module.exports = function () {
     var stream = client.stream('statuses/filter.json', {track: "trump, war"});
 
     stream.on('data', function (event) {
-        data_analysis(event.text);
+        // console.log(event.text);
+        var result = data_analysis(event.text);
+
+        //send result through socket.io
+        console.log(result);
+    });
+
+    stream.on('error', function(error) {
+        throw error;
     });
 };
 
