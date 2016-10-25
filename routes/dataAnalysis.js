@@ -2,9 +2,7 @@ var retext = require('retext');
 var sentiment = require('retext-sentiment');
 var cliche = require('retext-cliches');
 var equality = require('retext-equality');
-var report = require('vfile-reporter');
 var profanity = require('retext-profanities');
-var inspect = require('unist-util-inspect');
 var json = require('json-query');
 
 //Visualization
@@ -42,3 +40,6 @@ module.exports = function (data) {
  return "i = " + i + " d = "+d;
  });
  }*/
+
+};
+
