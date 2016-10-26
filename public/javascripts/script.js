@@ -1,3 +1,13 @@
+var socket = io();
+
+console.log(socket.io.engine.id + "");
+
+
+socket.on('socketToMe', function(msg){
+	console.log(msg);
+});
+
+
 function Search(){
 
 	//Remove the animation
