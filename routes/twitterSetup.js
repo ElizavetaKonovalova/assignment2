@@ -11,7 +11,8 @@ module.exports = function (io, socketid, query) {
         access_token_secret: configAuth.twitter.access_token_secret
     });
 
-    var stream = client.stream('statuses/filter.json', {track: "trump, war"});
+    // var stream = client.stream('statuses/filter.json', {track: "trump, war"});
+    var stream = client.stream('statuses/filter.json', {track: query});
 
     stream.on('data', function (event) {
         // console.log(event.text);
