@@ -42,6 +42,14 @@ body {
   shape-rendering: crispEdges;
 }
 
+/*.axis text {
+   fill: white;
+}*/
+
+/*.tick{
+  fill: white;
+}*/
+
 .bar {
   fill: orange;
 }
