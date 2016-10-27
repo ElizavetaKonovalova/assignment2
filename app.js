@@ -6,19 +6,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/routes');
-
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-io.on('connection', function(socket){
-  io.clientid = socket.id;
-  console.log("a user connected :" + socket.id);
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
+var routes = require('./routes/routes')(io);
+
+// io.on('connection', function(socket){
+//   console.log("a user connected :" + socket.id);
+
+//   socket.on('disconnect', function(){
+//     console.log('user disconnected');
+//   });
+
+//   socket.on('search', function(query){
+//     console.log("Query : " + query);
+//     twitter_client();
+//   });
+
+// });
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,10 +35,10 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(function(req, res, next){
-  res.io = io;
-  next();
-});
+// app.use(function(req, res, next){
+//   res.io = io;
+//   next();
+// });
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

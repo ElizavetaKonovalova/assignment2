@@ -3,20 +3,26 @@ var router = express.Router();
 var azures = require('./azure');
 var twitter_client = require('./twitterSetup');
 
-router.get('/', function(req, res, next) {	
-	res.render('index', { title: 'Express' });
-});
+module.exports = function(io) {
+    
 
-router.get('/analyse', function (req, res, next) {
-    //azures();
+    router.get('/', function(req, res, next) {	
+		res.render('index', { title: 'Express' });
+	});
 
-    //should pass user query to the twitter
-    // twitter_client();
+    io.on('connection', function(socket) { 
+        console.log("A user connected :" + socket.id);
 
-    console.log(req);
+        socket.on('disconnect', function(){
+			console.log('user disconnected');
+		});
 
-    console.log(res.io.clientid);
-    res.io.emit("socketToMe", "users");
-});
+		socket.on('search', function(query){
+			console.log("User : " + socket.id + " Query : " + query);
+			twitter_client(io, socket.id, query);
+		});
 
-module.exports = router;
+    });
+
+    return router;
+}

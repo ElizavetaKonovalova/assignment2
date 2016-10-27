@@ -2,7 +2,7 @@ var configAuth = require('./models/credentials');
 var twitter = require('twitter');
 var data_analysis = require('./dataAnalysis');
 
-module.exports = function () {
+module.exports = function (io, socketid, query) {
 
     var client = new twitter({
         consumer_key: configAuth.twitter.consumer_key,
@@ -17,8 +17,8 @@ module.exports = function () {
         // console.log(event.text);
         var result = data_analysis(event.text);
 
-        //send result through socket.io
-        console.log(result);
+        //send data back to specific client
+        io.sockets.connected[socketid].emit('received data', result);
     });
 
     stream.on('error', function(error) {
