@@ -3,8 +3,6 @@ var azure_rm_compute = require('azure-arm-compute');
 var azure_common = require('azure-common');
 var configAuth = require('./models/credentials');
 
-var service_name = "assignment2";
-
 module.exports = function () {
 
    /*var compute_client_asm = azure_asm_compute.createComputeManagementClient(

@@ -9,25 +9,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
-var routes = require('./routes/routes')(io);
-
-// io.on('connection', function(socket){
-//   console.log("a user connected :" + socket.id);
-
-//   socket.on('disconnect', function(){
-//     console.log('user disconnected');
-//   });
-
-//   socket.on('search', function(query){
-//     console.log("Query : " + query);
-//     twitter_client();
-//   });
-
-// });
-
-
-
+var routes = require('./routes/routes');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,10 +17,10 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-// app.use(function(req, res, next){
-//   res.io = io;
-//   next();
-// });
+app.use(function(req, res, next){
+  res.io = io;
+  next();
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -63,9 +45,7 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
 // development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -77,7 +57,6 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {

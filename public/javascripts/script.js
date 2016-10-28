@@ -4,11 +4,8 @@ var data = [
 		{item: "negative", number: 0}
 	];
 
-// console.log(data);
-
 var socket = io();
 
-// console.log(socket.io.engine.id + "");
 socket.on('received data', function(msg){
 	console.log(msg.valence);
 	switch(msg.valence){
@@ -22,24 +19,17 @@ socket.on('received data', function(msg){
 			data[2].number++;
 			break;
 	}
-	
-			
 });
-
-
 
 function Search(){
 	//Remove the animation
 	$('.twitter_animation').empty();
 	$('.twitter_animation').remove();
 
-	var search_key = $("#search_key").val();
-	// console.log(search_key);
-	socket.emit('search', search_key);
+	socket.emit('search', $("#search_key").val());
 
 	$("#graph").empty();
 
-	//Put JSON data into the graph function
 	DrawGraph(data);
 }
 
@@ -49,7 +39,19 @@ function DrawGraph(data){
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
 
-	// var formatPercent = d3.format(".0%");
+	for(var i=0; i < data.length; i++) {
+		data[i].xScale = d3.scale().domain([data[i].item, data[i].number]);
+	}
+
+	var graph = d3.select('#graph').selectAll('g.graph').data(data, data.forEach(function (element) {
+		return element.item;
+	}));
+
+	var newGraph = graph.enter()
+		.append("g")
+		.attr('class', 'graph');
+
+	/*// var formatPercent = d3.format(".0%");
 	var formatPercent = d3.format("s");
 
 	var x = d3.scale.ordinal()
@@ -117,5 +119,8 @@ function DrawGraph(data){
 			.attr("y", function(d) { return y(d.number); })
 			.attr("height", function(d) { return height - y(d.number); })
 			.on('mouseover', tip.show)
-			.on('mouseout', tip.hide)
+			.on('mouseout', tip.hide);
+
+	svg.selectAll('#graph').data([data]).attr('d',tip);
+	svg.exit()*/
 }

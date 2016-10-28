@@ -2,7 +2,7 @@ var configAuth = require('./models/credentials');
 var twitter = require('twitter');
 var data_analysis = require('./dataAnalysis');
 
-module.exports = function (io, socketid, query) {
+module.exports = function (response, query) {
 
     var client = new twitter({
         consumer_key: configAuth.twitter.consumer_key,
@@ -11,14 +11,10 @@ module.exports = function (io, socketid, query) {
         access_token_secret: configAuth.twitter.access_token_secret
     });
 
-    var stream = client.stream('statuses/filter.json', {track: "trump, war"});
+    var stream = client.stream('statuses/filter.json', {track: query});
 
     stream.on('data', function (event) {
-        // console.log(event.text);
-        var result = data_analysis(event.text);
-
-        //send data back to specific client
-        io.sockets.connected[socketid].emit('received data', result);
+        data_analysis(event.text, response);
     });
 
     stream.on('error', function(error) {
