@@ -8,26 +8,25 @@ var twitter = require('twitter');
 var data_analysis = require('./dataAnalysis');
 
 module.exports = function(io) {
-    
 
-    router.get('/', function(req, res, next) {	
+	router.get('/', function(req, res, next) {	
 		res.render('index', { title: 'Express' });
 	});
 
 	var currentStream;
 
-    io.on('connection', function(socket) { 
-    	var client = new twitter({
-	        consumer_key: configAuth.twitter.consumer_key,
-	        consumer_secret: configAuth.twitter.consumer_secret,
-	        access_token_key: configAuth.twitter.access_token,
-	        access_token_secret: configAuth.twitter.access_token_secret
-	    });
+	io.on('connection', function(socket) { 
+		var client = new twitter({
+			consumer_key: configAuth.twitter.consumer_key,
+			consumer_secret: configAuth.twitter.consumer_secret,
+			access_token_key: configAuth.twitter.access_token,
+			access_token_secret: configAuth.twitter.access_token_secret
+		});
 
-        console.log("A user connected :" + socket.id);
+		console.log("A user connected :" + socket.id);
 
-        socket.on('disconnect', function(){
-        	currentStream.destroy();
+		socket.on('disconnect', function(){
+			currentStream.destroy();
 			console.log('user disconnected');
 		});
 
@@ -59,7 +58,7 @@ module.exports = function(io) {
 			currentStream.destroy();
 		});
 
-    });
+	});
 
-    return router;
+	return router;
 }
