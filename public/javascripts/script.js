@@ -6,11 +6,9 @@ var data = [
 
 var socket = io();
 
-var search = true;
-
 socket.on('received data', function(msg){
 	console.log(msg.valence);
-	if(search){
+
 		switch(msg.valence){
 			case "positive":
 				data[0].number++;
@@ -25,11 +23,11 @@ socket.on('received data', function(msg){
 				break;
 		}
 		ReDraw();
-	}
+
 });
 
 function Stop_search(){
-	search = false;
+	socket.emit('stop search');
 }
 
 function Refresh_Data(){
