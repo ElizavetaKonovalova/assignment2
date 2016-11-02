@@ -31,6 +31,10 @@ module.exports = function(io) {
 		});
 
 		socket.on('search', function(query){
+			if(currentStream){
+				currentStream.destroy();
+			}
+			
 			console.log("User : " + socket.id + " Query : " + query);
 
 
