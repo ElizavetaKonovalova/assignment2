@@ -5,19 +5,18 @@ var session = require('express-session');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var mongoose = require('mongoose');
-var configDB = require('./routes/models/database.js');
-
-/*mongoose.connect(configDB.url, function (err, result) {
-  if(err)
-    throw err;
-});*/
+var mongoose = require('mongoose');
 
 var app = express();
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var routes = require('./routes/routes');
+
+var configDB = require('./routes/models/database.js');
+
+mongoose.Promise = global.Promise;
+mongoose.connect(configDB.url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,9 +36,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret:'secret_word-goes_here',
-  resave: true,
+  resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: false
 }));
 
 app.use('/', routes);

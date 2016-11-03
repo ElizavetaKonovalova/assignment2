@@ -7,12 +7,12 @@ var fs = require('fs');
 var deployment_parameters = {
     "properties": {
         "templateLink": {
-            "uri": "https://storagefortemplate.blob.core.windows.net/templates/template.json",
+            "uri": "https://storagefortemplate.blob.core.windows.net/templates/vmss_template.json",
             "contentVersion": "1.0.0.0"
         },
         "mode": "Incremental",
         "parametersLink": {
-            "uri": "https://storagefortemplate.blob.core.windows.net/templates/parameters.json",
+            "uri": "https://storagefortemplate.blob.core.windows.net/templates/vmss_parameters.json",
             "contentVersion": "1.0.0.0"
         },
         "debugSetting": {
@@ -83,34 +83,29 @@ function createResourceG(client_rm, client_arm) {
 
 /*
 * Checks if a deployment with this name already exists. If not, create a new one.
-* If exists,
+* If exists, skip.
 * */
 function createScaleSets(client_rm, client_arm) {
 
-    client_rm.deployments.checkExistence("assignment2-rg", "deploy01", function (err, exist, request, response) {
+    client_rm.deployments.checkExistence("assgnmnt2cc", "deployVMSS", function (err, exist, request, response) {
         if(err) throw err;
 
         if(!exist) {
-            client_rm.deployments.createOrUpdate("assignment2-rg", "deploy01", deployment_parameters,
+            client_rm.deployments.createOrUpdate("assgnmnt2cc", "deployVMSS", deployment_parameters,
                 function (err, result, request, response) {
                     if(err) throw err;
 
-                    //Check if it's been created successfully
+                    /*//Check if it's been created successfully
                     if(response.statusMessage == 'OK')
-                        captureCurrentMachine(client_arm);
+                        captureCurrentMachine(client_arm);*/
             });
         }
         else {
-            captureCurrentMachine(client_arm);
+            // captureCurrentMachine(client_arm);
         }
     });
 }
-
-function deallocateCurrentVM() {
-
-}
-
-
+/*
 function captureCurrentMachine(client_arm) {
 
     client_arm.virtualMachines.beginCapture("assignment2-rg", "vm01", function (err, result, request, response) {
@@ -126,4 +121,4 @@ function captureCurrentMachine(client_arm) {
     client_arm.virtualMachineScaleSets.list("assignment2-rg", function (err, exist, request, response) {
         console.log(exist);
     });
-}
+}*/
