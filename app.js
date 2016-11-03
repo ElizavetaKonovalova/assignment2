@@ -6,6 +6,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var twitter_client = require('./routes/twitterSetup');
+var data_analysis = require('./routes/dataAnalysis');
 
 var app = express();
 
@@ -13,10 +15,14 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var routes = require('./routes/routes');
 
-var configDB = require('./routes/models/database.js');
+/*var configDB = require('./routes/models/database.js');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(configDB.url);
+mongoose.connect(configDB.url);*/
+
+io.sockets.on('connection', function (socket) {
+  twitter_client(socket);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
