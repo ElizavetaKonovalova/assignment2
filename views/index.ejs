@@ -1,5 +1,4 @@
 <html>
-
 <head>
 
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
@@ -11,13 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 
-    
-    <script type="text/javascript" src="../public/javascripts/script.js"></script>
-
+    <script type="text/javascript" src="../public/javascripts/client.js"></script>
 
     <title>Twitter Analyser</title>
 
@@ -30,7 +27,10 @@
     <!--Search Bar-->
     <section class="webdesigntuts-workshop">
         <input id="search_key" type="search" placeholder="type your hashtags here">
-        <button id="search_button" type="submit" onclick="Search()">Search</button>
+        <div class="btn-group" role="group" style="width: 19%;">
+            <button id="search_button" type="submit" onclick="Search()">Search</button>
+            <button id="stop_button" type="submit" onclick="Stop()">Stop</button>
+        </div>
     </section>
 
     <!--Animation-->
@@ -47,11 +47,24 @@
         </div>
     </div>
 
-    <!--Graph-->
-    <div id="lower_body">
-        <div id="graph_wrapper">
-            <div id="graph"></div>
+    <!--Graph and Keywords-->
+    <div class="form-horizontal" style="padding-top: 3%;">
+        <div class="form-group">
+            <div class="col-sm-4">
+                <div id="graph" style="padding-right: -20px;"></div>
+            </div>
+            <div class="col-sm-6 col-sm-offset-2">
+                <div id="keyw_container" class="container" style="overflow-y: auto;
+                max-width:90%; width:90%; height: 60%; max-height: 60%;">
+                    <ul id="key_words"></ul>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!--Cliches-->
+    <div id="cliches" class="container">
+        <ul id="cliche" style="width: 80%; max-width: 97%; "></ul>
     </div>
 
 </div>

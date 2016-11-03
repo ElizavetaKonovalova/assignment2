@@ -38,7 +38,7 @@ body {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #393;
   shape-rendering: crispEdges;
 }
 
@@ -86,20 +86,22 @@ body {
 #lower_body{
   width:100%;
   height:500px;
+  margin-top: 7%;
+  /*margin-left: 7%;*/
   /*background-color: green;*/
 }
 
 #graph_wrapper{
-  width: 98%;
-  height: 98%;
+  width: 1%;
+  height: 1%;
   /*background-color: red;*/
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 }
 
 /*Search Bar Styling*/
 .webdesigntuts-workshop {
-  height: 11%;
-  width: 60%;
+  height: 90px;
+  width: 76%;
   background: #111;
   background: linear-gradient(#1b1b1b, #111);
   border: 1px solid #000;
@@ -108,8 +110,8 @@ body {
   display: inline-block;
   font-size: 0px;
   margin-top: 3%;
-  margin-left: 17%;
-  padding: 20px;
+  margin-left: 7%;
+  padding: 23px;
   position: relative;
   z-index: 1;
 }
@@ -139,11 +141,10 @@ body {
   font-size: 13px;
   font-weight: 400;
   height: 40px;
-  margin: 0;
   margin-right: 0.5%;
   padding: 0 10px;
   text-shadow: 0 -1px 0 #000;
-  width: 85%;
+  width: 80%;
 }
 
 .ie .webdesigntuts-workshop input {
@@ -182,7 +183,7 @@ body {
   box-sizing: content-box;
   border: 1px solid #444;
   border-left-color: #000;
-  border-radius: 0 5px 5px 0;
+  border-radius: 5px 5px 5px 5px;
   box-shadow: 0 2px 0 #000;
   color: #fff;
   display: block;
@@ -192,11 +193,11 @@ body {
   font-weight: 400;
   height: 40px;
   line-height: 40px;
-  margin: 0;
+  margin-right: 0.5%;
   padding: 0;
   position: relative;
   text-shadow: 0 -1px 0 #000;
-  width: 80px;
+  width: 54px;
 }
 
 .webdesigntuts-workshop button:hover,
@@ -247,15 +248,7 @@ body {
   padding:0 40px;
 }
 
-p {
-  display:inline;
-  color: deepskyblue;
-  float:left;
-  margin:0;
-  margin-right: 5%;
-}
-
-ul {
+.twitter_animation .visible ul {
   margin-top:0;
   margin-left: 35%;
   width: 70%;
@@ -276,9 +269,17 @@ ul {
   animation-iteration-count: infinite;
 }
 
-ul li {
+.twitter_animation .visible ul li {
   line-height:41px;
   margin:0;
+}
+
+p {
+  display:inline;
+  color: deepskyblue;
+  float:left;
+  margin:0;
+  margin-right: 5%;
 }
 
 @-webkit-keyframes opacity {
@@ -333,5 +334,34 @@ ul li {
   20%, 60%, 100% {opacity:1;}
 }
 
+#keyw_container ul {
+  max-height: 20%;
+  word-wrap: break-word;
+  max-width: 100%;
+  width: 80%;
+}
 
+.container::-webkit-scrollbar {
+  width: 12px;
+}
 
+.container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+#cliches.container
+{
+    overflow-y: auto;
+    max-width:95.5%;
+    width:95.5%;
+    height: 10%;
+    max-height: 20%;
+}

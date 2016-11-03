@@ -1,5 +1,3 @@
-var fs = require('fs');
-
 module.exports =
 {
     'twitter': {
@@ -12,6 +10,13 @@ module.exports =
 
     'azure' : {
         'subscription_id': 'e6062b6f-ab04-4c4a-874e-aefa2ec9c998',
-        'pem': fs.readFileSync('./documents/azure.pem').toString()
+        'clientID' : 'b023cd5c-525e-4fc6-bab9-1fb846d8c26a',
+        'key' : 'Qig3cH8d7/fnpAzZweJjrBFGNpIVQMXqIiBSm+qVGXg=',
+        'tenantID': 'dc0b52a3-68c5-44f7-881d-9383d8850b96'
+    },
+
+    'documentDB' : {
+        'username': 'assignment2',
+        'password': 'nDNJwCXw5bZC3t2Zj0j1ouvC8CjE604XS3k5Gan7BRUYKRYSL1N8d1ByEGl5IOywmLesJZP5nDQJdE4phrDm3w=='
     }
 };
