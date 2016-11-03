@@ -38,6 +38,10 @@ module.exports = function (response) {
             });
         });
 
+        socket.on('disconnect', function () {
+            current_stream.destroy();
+        });
+
         socket.on('stopit', function () {
             current_stream.destroy();
         });

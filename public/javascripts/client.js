@@ -107,7 +107,7 @@ function Search(){
 
 	if(search_key){
 
-		search = true;
+		// search = true;
 
 		Refresh_Data();
 
