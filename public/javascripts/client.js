@@ -95,7 +95,7 @@ socket.on('cliche', function (result) {
 
 function Stop() {
 	socket.emit('stopit');
-	socket.emit('pass to db', data, keyword_data, cliche_data, search_key);
+	// socket.emit('pass to db', data, keyword_data, cliche_data, search_key);
 }
 
 function Search(){

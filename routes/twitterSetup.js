@@ -17,9 +17,11 @@ module.exports = function (response) {
 
     response.io.sockets.on('connection', function(socket){
 
+        console.log("User connected: " + socket.id);
+
         socket.on('disconnect', function(){
-            socket.disconnect();
             current_stream.destroy();
+            socket.disconnect();
         });
 
         socket.on('search', function (query) {
@@ -30,7 +32,7 @@ module.exports = function (response) {
             current_stream = client.stream('statuses/filter.json', {track: query});
 
             current_stream.on('data', function (event) {
-                data_analysis(event.text, response);
+                data_analysis(event.text, response, socket.id);
             });
 
             current_stream.on('error', function(error) {
