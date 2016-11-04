@@ -47,7 +47,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret:'secret_word-goes_here',
   resave: false,
-  saveUninitialized: true,
   cookie: false
 }));
 

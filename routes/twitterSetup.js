@@ -40,13 +40,13 @@ module.exports = function (socket) {
                         data_analysis(data.twitter_data, socket);
                     }
                     else
-                        data_analysis("", socket);
+                        data_analysis(data.twitter_data, socket);
                 });
             }
         });
 
         current_stream.on('error', function(error) {
-            throw error;
+            console.log(error);
         });
     });
 
