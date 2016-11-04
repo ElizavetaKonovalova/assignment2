@@ -12,8 +12,6 @@ function Refresh_Data(){
 	];
 }
 
-var cliche_data = [];
-var keyword_data = [];
 var socket = io();
 
 var search_key = [];
@@ -64,8 +62,6 @@ socket.on('received data', function(msg){
 
 socket.on('keywords', function (result) {
 
-	keyword_data.push(result);
-
 	var randomColor = Math.floor(Math.random()*16777215).toString(16);
 	var randomFont = (Math.floor(Math.random() * (60 - 19 + 1)) + 5).toString();
 
@@ -81,8 +77,6 @@ socket.on('keywords', function (result) {
 });
 
 socket.on('cliche', function (result) {
-	cliche_data.push(result);
-
 	var text = document.createTextNode(result),
 		el = document.createElement('li'),
 		messages = document.getElementById('cliche');
@@ -95,7 +89,6 @@ socket.on('cliche', function (result) {
 
 function Stop() {
 	socket.emit('stopit');
-	// socket.emit('pass to db', data, keyword_data, cliche_data, search_key);
 }
 
 function Search(){
@@ -106,8 +99,6 @@ function Search(){
 	$('#cliche').empty();
 
 	if(search_key){
-
-		// search = true;
 
 		Refresh_Data();
 
@@ -135,7 +126,7 @@ function ReDraw(){
 
 	svg.select(".y.axis")
 		.transition()
-		.duration(100)
+		.duration(50)
 		.call(yAxis);
 
 	var bars = svg.selectAll(".bar").data(data, function(d) { return d.item; });

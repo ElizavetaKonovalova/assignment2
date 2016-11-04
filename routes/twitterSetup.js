@@ -2,7 +2,8 @@ var configAuth = require('./models/credentials');
 var twitter = require('twitter');
 var data_analysis = require('./dataAnalysis');
 var SearchHistory = require('./models/history');
-var obj_id = require('mongoose').ObjectId;
+var MongooseObjectStream = require('mongoose-object-stream');
+var modelStream = new MongooseObjectStream(SearchHistory);
 
 module.exports = function (socket) {
 
@@ -15,11 +16,6 @@ module.exports = function (socket) {
 
     var current_stream;
 
-    socket.on('disconnect', function(){
-        socket.disconnect();
-        current_stream.destroy();
-    });
-
     socket.on('search', function (query) {
 
         if(current_stream)
@@ -27,8 +23,26 @@ module.exports = function (socket) {
 
         current_stream = client.stream('statuses/filter.json', {track: query});
 
-        current_stream.on('data', function (event) {
-            data_analysis(event.text, socket);
+        current_stream.on('data', function (data) {
+
+            //To prevent the 'Cannot read property 'toString' of undefined'
+            if(data != null || data != "")
+            {
+                //Put tweets into the DocumentDB database.
+                modelStream.write({"search_key": query.toString(), "twitter_data": data.text.toString()});
+
+                //Fetch data from the database.
+                var cursor = SearchHistory.find({'search_key': query.toString()}).cursor();
+                cursor.on('data', function(data) {
+
+                    if(data != null || data != "") {
+                        //Send data for analysis
+                        data_analysis(data.twitter_data, socket);
+                    }
+                    else
+                        data_analysis("", socket);
+                });
+            }
         });
 
         current_stream.on('error', function(error) {
@@ -36,38 +50,8 @@ module.exports = function (socket) {
         });
     });
 
-    socket.on('stopit', function () {
+    socket.on('stopit', function (data) {
+        current_stream.track = null;
         current_stream.destroy();
     });
-
-    socket.on('pass to db', function (sentiment, keywords, cliches, search_key) {
-
-        SearchHistory.findOne({'twitter_search_schema.search_key': JSON.stringify(search_key)}, function done(err, found) {
-            if (err) throw err;
-
-            if(found) {
-                found.twitter_search_schema.sentiment = JSON.stringify(sentiment);
-                found.twitter_search_schema.keywords = JSON.stringify(keywords);
-                found.twitter_search_schema.cliche = JSON.stringify(cliches);
-                found.save(function (err) {
-                    if(err) throw err;
-                    return done(null, found);
-                });
-            }
-            else {
-                var new_search_history = new SearchHistory();
-                new_search_history.twitter_search_schema.search_key = JSON.stringify(search_key);
-                new_search_history.twitter_search_schema.cliche = JSON.stringify(cliches);
-                new_search_history.twitter_search_schema.sentiment = JSON.stringify(sentiment);
-                new_search_history.twitter_search_schema.keywords = JSON.stringify(keywords);
-                new_search_history.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, new_search_history);
-                });
-            }
-        });
-    });
-
 };
-

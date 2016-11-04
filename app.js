@@ -14,14 +14,18 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var routes = require('./routes/routes');
-
-/*var configDB = require('./routes/models/database.js');
+var configDB = require('./routes/models/database.js');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(configDB.url);*/
+mongoose.connect(configDB.url, function (err, result) {
+  if(err) throw err;
+});
 
 io.sockets.on('connection', function (socket) {
   twitter_client(socket);
+  socket.on('disconnect', function () {
+    socket.disconnect();
+  });
 });
 
 // view engine setup

@@ -18,8 +18,9 @@ module.exports = function (data, socket) {
 
     //Cliche and profanity analysis
     retext().use(cliche).use(profanity).use(equality).process(data, function (err, file) {
-        if ((json('messages.message', {data: file}).value).length != 0)
+        if ((json('messages.message', {data: file}).value).length != 0) {
             socket.emit("cliche", json('messages.message', {data: file}).value);
+        }
     });
 
     //Keyword extraction
@@ -29,6 +30,4 @@ module.exports = function (data, socket) {
         });
     });
 };
-
-
 
