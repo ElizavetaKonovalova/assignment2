@@ -25,7 +25,6 @@ module.exports = function (socket) {
 
         current_stream.on('data', function (data) {
 
-            //To prevent the 'Cannot read property 'toString' of undefined'
             if(data != null || data != "")
             {
                 //Put tweets into the DocumentDB database.
@@ -34,15 +33,11 @@ module.exports = function (socket) {
                 //Fetch data from the database.
                 var cursor = SearchHistory.find({'search_key': query.toString()}).cursor();
                 cursor.on('data', function(data) {
-
-                    if(data != null || data != "") {
-                        //Send data for analysis
-                        data_analysis(data.twitter_data, socket);
-                    }
-                    else
                         data_analysis(data.twitter_data, socket);
                 });
             }
+            else
+                data_analysis("", socket);
         });
 
         current_stream.on('error', function(error) {

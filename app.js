@@ -23,7 +23,7 @@ mongoose.connect(configDB.url, function (err, result) {
 });
 
 io.sockets.on('connection', function (socket) {
-  azure();
+  // azure();
   twitter_client(socket);
   socket.on('disconnect', function () {
     socket.disconnect();
@@ -49,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret:'secret_word-goes_here',
   resave: false,
+  saveUninitialized: true,
   cookie: false
 }));
 
