@@ -6,8 +6,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
 var twitter_client = require('./routes/twitterSetup');
-var data_analysis = require('./routes/dataAnalysis');
+var azure = require('./routes/azure');
 
 var app = express();
 
@@ -22,6 +23,7 @@ mongoose.connect(configDB.url, function (err, result) {
 });
 
 io.sockets.on('connection', function (socket) {
+  azure();
   twitter_client(socket);
   socket.on('disconnect', function () {
     socket.disconnect();

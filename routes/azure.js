@@ -49,9 +49,8 @@ function tokenCallback(error, tokenResponse){
 
     //Create clients for manipulating scale sets, resource groups, and virtual machines
     var client_rm = azure.createResourceManagementClient(credentials, configAuth.azure.subscription_id);
-    var client_arm = azure.createARMComputeManagementClient(credentials, configAuth.azure.subscription_id);
 
-    createResourceG(client_rm, client_arm);
+    createResourceG(client_rm);
 }
 
 /*
@@ -59,24 +58,24 @@ function tokenCallback(error, tokenResponse){
 * and trigger function for creating a scale set.
 * If exists, start creating scale sets.
 * */
-function createResourceG(client_rm, client_arm) {
+function createResourceG(client_rm) {
 
-    client_rm.resourceGroups.checkExistence("assignment2-rg", function (err, exist, request, response) {
+    client_rm.resourceGroups.checkExistence("assgnmnt2ccqut", function (err, exist, request, response) {
 
         if(err) throw err;
 
         if(!exist) {
-            client_rm.resourceGroups.createOrUpdate("assignment2-rg", {"name":"assignment2-rg", "location":"southcentralus"},
+            client_rm.resourceGroups.createOrUpdate("assgnmnt2ccqut", {"name":"assignment2-rg", "location":"southcentralus"},
                 function (err, result, request, response) {
                     if(err) throw err;
 
                     //Check if it's been created successfully
                     if(response.statusMessage == 'Created')
-                        createScaleSets(client_rm, client_arm);
+                        createScaleSets(client_rm);
             });
         }
         else {
-            createScaleSets(client_rm, client_arm);
+            createScaleSets(client_rm);
         }
     });
 }
@@ -85,13 +84,13 @@ function createResourceG(client_rm, client_arm) {
 * Checks if a deployment with this name already exists. If not, create a new one.
 * If exists, skip.
 * */
-function createScaleSets(client_rm, client_arm) {
+function createScaleSets(client_rm) {
 
-    client_rm.deployments.checkExistence("assgnmnt2cc", "deployVMSS", function (err, exist, request, response) {
+    client_rm.deployments.checkExistence("assgnmnt2ccqut", "deployVMSS", function (err, exist, request, response) {
         if(err) throw err;
 
         if(!exist) {
-            client_rm.deployments.createOrUpdate("assgnmnt2cc", "deployVMSS", deployment_parameters,
+            client_rm.deployments.createOrUpdate("assgnmnt2ccqut", "deployVMSS", deployment_parameters,
                 function (err, result, request, response) {
                     if(err) throw err;
 
@@ -105,6 +104,11 @@ function createScaleSets(client_rm, client_arm) {
         }
     });
 }
+/*
+*
+* To be completed. Manual capturing of an image at this stage.
+* */
+
 /*
 function captureCurrentMachine(client_arm) {
 
