@@ -16,7 +16,7 @@ module.exports =
     },
 
     'documentDB' : {
-        'username': 'assignment2ccqut',
-        'password': 'hIlO9Q35wqw6431i0yonQMNKk3JOiTz7sgGN3SMaqlXbzvgrOUGPR6dK7TMdZHPsVZKpR08WvqQYmX61XrrMKA=='
+        'username': 'assignment2ccqutstore',
+        'password': 'v2Lm4neluVH2qW4dFXWcMU9GTTDAktgUCA0Ta9fzoJ01nu8Mmps6FgbtciBQhVGxTlSbxN27lTLtdhGYtqVPyQ=='
     }
 };

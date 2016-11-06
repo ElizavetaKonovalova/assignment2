@@ -23,7 +23,7 @@ mongoose.connect(configDB.url, function (err, result) {
 });
 
 io.sockets.on('connection', function (socket) {
-  // azure();
+  azure();
   twitter_client(socket);
   socket.on('disconnect', function () {
     socket.disconnect();

@@ -25,28 +25,31 @@ module.exports = function (socket) {
 
         current_stream.on('data', function (data) {
 
-            if(data != null || data != "")
+            if(data != null && data != "" && data !== undefined)
             {
                 //Put tweets into the DocumentDB database.
-                modelStream.write({"search_key": query.toString(), "twitter_data": data.text.toString()});
-
-                //Fetch data from the database.
-                var cursor = SearchHistory.find({'search_key': query.toString()}).cursor();
-                cursor.on('data', function(data) {
-                        data_analysis(data.twitter_data, socket);
-                });
+                modelStream.write({"search_key": query.toString(), "twitter_data": data.text});
             }
-            else
-                data_analysis("", socket);
+
+            getData(query);
         });
 
+        //If no data from twitter, get from DocumentDB
         current_stream.on('error', function(error) {
-            console.log(error);
+            getData(query);
         });
     });
 
     socket.on('stopit', function (data) {
-        current_stream.track = null;
+        getData("");
         current_stream.destroy();
     });
+
+    function getData(query) {
+        //Fetch data from the database.
+        var cursor = SearchHistory.find({'search_key': query.toString()}).cursor();
+        cursor.on('data', function(data) {
+            data_analysis(data.twitter_data, socket);
+        });
+    }
 };
